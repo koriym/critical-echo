@@ -56,6 +56,18 @@ Being featured here is itself a sign of respect for the article.
 
 ---
 
+## Usage
+
+This repository includes a Claude Code skill for generating reviews.
+
+```bash
+/critical-echo
+```
+
+See [SKILL.md](.claude/skills/critical-echo/SKILL.md) for the full procedure.
+
+---
+
 ## License
 
 Review content is published under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
