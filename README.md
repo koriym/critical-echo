@@ -1,6 +1,6 @@
 # Critical Echo
 
-<img src="docs/images/title.png" width="400" alt="Critical Echo">
+<img src="docs/images/title.png" width="300" alt="Critical Echo">
 
 **Constructive criticism for articles worth critiquing**
 
