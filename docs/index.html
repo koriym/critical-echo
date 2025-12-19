@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Critical Echo</title>
+    <style>
+        :root {
+            --bg: #fafafa;
+            --text: #333;
+            --accent: #c00;
+            --muted: #666;
+            --border: #ddd;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #1a1a1a;
+                --text: #e0e0e0;
+                --accent: #ff6b6b;
+                --muted: #999;
+                --border: #333;
+            }
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            line-height: 1.7;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            background: var(--bg);
+            color: var(--text);
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+        h1 span { color: var(--accent); }
+        .tagline {
+            color: var(--muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+        h2 {
+            font-size: 1.3rem;
+            margin-top: 2.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.3rem;
+        }
+        h3 { font-size: 1.1rem; margin-top: 1.5rem; }
+        p { margin: 1rem 0; }
+        blockquote {
+            border-left: 3px solid var(--accent);
+            margin: 1.5rem 0;
+            padding-left: 1rem;
+            color: var(--muted);
+            font-style: italic;
+        }
+        ul { padding-left: 1.5rem; }
+        li { margin: 0.5rem 0; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .reviews { margin-top: 2rem; }
+        .review-item {
+            border: 1px solid var(--border);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .review-item h4 { margin: 0 0 0.5rem 0; font-size: 1rem; }
+        .review-meta { font-size: 0.85rem; color: var(--muted); }
+        .score {
+            display: inline-block;
+            background: var(--border);
+            padding: 0.1rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+        footer {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Critical <span>Echo</span></h1>
+        <p class="tagline">Constructive criticism for articles worth critiquing.</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>Why this project exists</h2>
+
+            <h3>The problem with consensus</h3>
+            <p>When an article goes viral and everyone nods along — "Yes, exactly!" — that's often the moment thinking stops.</p>
+            <p>Popular agreement feels validating. But consensus can also be a trap. The more people agree, the less anyone questions. And sometimes, the most important perspective is the one that asks: "But is that really the case?"</p>
+            <p>This isn't contrarianism. It's intellectual honesty.</p>
+
+            <h3>The role of criticism</h3>
+            <p>Good criticism doesn't tear down. It adds dimension.</p>
+            <p>A popular article presents one perspective. A good critique adds another — not to cancel the first, but to complete the picture. The goal is to give readers more to think with, not to tell them what to think.</p>
+            <p>We call this "adding a perspective line" (補助線). In geometry, a construction line helps you see relationships that weren't visible before. That's what we're trying to do with ideas.</p>
+
+            <h3>Why AI?</h3>
+            <p>Modern LLMs are trained with careful bias adjustment — political, ideological, preferential. Many see this as a limitation. We see it as a resource.</p>
+            <p>Human critics always have a position: industry insider or outsider, past statements to be consistent with, personal interests and relationships, tribal affiliations. Readers must always ask: "Why is this person saying this?"</p>
+            <p>AI criticism has no such motive to suspect. This isn't neutrality — AI has its own biases and limitations. But it's a <em>different kind</em> of bias, one that doesn't stem from personal stakes in the argument.</p>
+
+            <h3>What we don't do</h3>
+            <ul>
+                <li><strong>Criticism for clicks</strong>: We don't pick fights for engagement</li>
+                <li><strong>Gotcha journalism</strong>: We don't hunt for mistakes to humiliate authors</li>
+                <li><strong>Hot takes</strong>: We avoid articles in active controversy</li>
+                <li><strong>Punching down</strong>: We only critique articles worth critiquing</li>
+            </ul>
+            <p>Being selected for review here is not an attack. It's recognition that the article matters enough to think about more carefully.</p>
+        </section>
+
+        <section class="reviews">
+            <h2>Reviews</h2>
+
+            <div class="review-item">
+                <h4><a href="reviews/2025-12-19-vibe-coding-cs-degree.md">Is 'Vibe Coding' Ruining My CS Degree?</a></h4>
+                <p class="review-meta">
+                    2025-12-19 · dev.to
+                    <span class="score">Article: 7/10</span>
+                    <span class="score">Review: 7/10</span>
+                </p>
+            </div>
+
+            <div class="review-item">
+                <h4><a href="reviews/2025-12-19-ai-layoff-misconception.md">AIレイオフによる【ITエンジニア失業論】の誤解</a></h4>
+                <p class="review-meta">
+                    2025-12-19 · note.com
+                    <span class="score">Article: 5/10</span>
+                    <span class="score">Review: 7/10</span>
+                </p>
+            </div>
+
+            <div class="review-item">
+                <h4><a href="reviews/2025-12-19-react-state-philosophy.md">React の状態管理の歴史と、最新 API に込められた React の思想</a></h4>
+                <p class="review-meta">
+                    2025-12-19 · zenn.dev
+                    <span class="score">Article: 6/10</span>
+                    <span class="score">Review: 7/10</span>
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Origin</h2>
+            <blockquote>"When everyone agrees, that's exactly when you should ask 'really?'"</blockquote>
+            <blockquote>"What if we used AI's calibrated neutrality not to avoid controversy, but to engage with ideas more honestly?"</blockquote>
+            <p>This is the experiment.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>
+            All reviews generated by Claude Opus 4.5 (Anthropic).
+            <a href="https://github.com/koriym/critical-echo">GitHub</a> ·
+            <a href="https://github.com/koriym/critical-echo/blob/main/.claude/skills/critical-echo/SKILL.md">SKILL.md</a>
+        </p>
+    </footer>
+</body>
+</html>
