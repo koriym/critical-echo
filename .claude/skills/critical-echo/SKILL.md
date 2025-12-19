@@ -1,3 +1,7 @@
+---
+name: critical-echo
+description: Generate constructive criticism reviews for popular tech articles. Use when asked to review, critique, or analyze trending tech articles from platforms like Qiita, Zenn, Hacker News, or Dev.to. (user)
+---
 
 This file defines the procedure for AI to generate Critical Echo review articles.
 
