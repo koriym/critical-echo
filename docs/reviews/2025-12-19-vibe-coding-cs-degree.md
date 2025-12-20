@@ -10,92 +10,96 @@ layout: default
 
 ---
 
-## The Argument
+## 元記事の概要
 
-A CS student confesses: she can ship projects faster than ever with AI, but when a mock interviewer asked her to reverse a linked list on a whiteboard, she froze. The algorithm had "atrophied." Her solution: the "Reverse Vibe Check"—manually typing AI-generated code, asking for explanations, deliberately testing failure cases.
-
-This is a sincere, well-written piece. The author doesn't rage against AI or dismiss it as a fad. She's wrestling with a real tension: **how do you learn when the machine already knows?**
-
-But there's a hidden assumption worth questioning.
+CS専攻の学生が、AIを使えばこれまで以上に速くプロジェクトを完成できるようになった一方で、模擬面接で「リンクリストの反転」を求められた際にフリーズしてしまった経験を告白する。アルゴリズムの能力が「萎縮」していたのだ。彼女の解決策は「Reverse Vibe Check」—AIが生成したコードを手動で打ち直し、説明を求め、意図的に失敗ケースをテストすること。
 
 ---
 
-## The Unexamined Premise: What Counts as "Fundamental"?
+## 記事の主張
 
-The article treats "reversing a linked list without help" as a benchmark of genuine understanding. But why?
+AIの時代に「本当に理解しているのか、それとも偽っているだけなのか」という不安を抱える学生の、誠実で実践的な記事だ。AIを否定も盲信もせず、「機械がすでに知っているとき、人間はどう学ぶのか」という現実的な緊張と向き合っている。
 
-Consider the history of "fundamentals" in computing:
-
-- **1960s**: Fundamental = writing machine code, managing registers
-- **1980s**: Fundamental = understanding memory allocation, pointers
-- **2000s**: Fundamental = algorithms, data structures, Big-O notation
-- **2010s**: Fundamental = system design, understanding trade-offs
-
-Each generation worried that the next was losing something essential. And each time, the profession redefined what mattered.
-
-**The author assumes that today's fundamentals are the permanent fundamentals.** But if AI handles algorithm implementation reliably, perhaps tomorrow's fundamentals are:
-
-- Recognizing when AI-generated code is subtly wrong
-- Understanding systems well enough to debug AI mistakes
-- Knowing what to ask for—the meta-skill of decomposition
-
-The mock interview failure might not reveal skill atrophy. It might reveal that whiteboard interviews are testing for the wrong century.
+しかし、この記事には問いただすべき隠れた前提がある。
 
 ---
 
-## The Deeper Problem: Learning vs. Performing
+## 問われていない前提：「基礎」とは何か？
 
-The article conflates two different anxieties:
+記事は「助けなしでリンクリストを反転できること」を真の理解の基準として扱っている。だが、なぜそうなのか？
 
-1. **Learning anxiety**: "Am I actually understanding, or just pretending?"
-2. **Performance anxiety**: "Will I pass interviews that ban AI?"
+コンピューティングにおける「基礎」の歴史を考えてみよう。
 
-These require different solutions.
+- **1960年代**: 基礎 = 機械語を書くこと、レジスタの管理
+- **1980年代**: 基礎 = メモリ割り当て、ポインタの理解
+- **2000年代**: 基礎 = アルゴリズム、データ構造、Big-O記法
+- **2010年代**: 基礎 = システム設計、トレードオフの理解
 
-For learning, the "Reverse Vibe Check" makes sense—active engagement beats passive acceptance. But for performance, the real question is: **why are we still interviewing as if AI doesn't exist?**
+各世代は、次の世代が本質的な何かを失っていると心配してきた。そしてそのたびに、職業は何が重要かを再定義してきた。
 
-Google allows calculators in interviews. Modern IDEs offer autocomplete. The industry adapted. If AI-assisted coding becomes the norm—and it will—interviews will follow. The author is training for a test that may not exist by the time she graduates.
+**著者は今日の基礎が永遠の基礎であると仮定している。** しかし、AIがアルゴリズム実装を確実に処理するなら、明日の基礎は次のようになるかもしれない：
 
----
+- AIが生成したコードが微妙に間違っているときにそれを認識すること
+- AIのミスをデバッグできるほどシステムを理解すること
+- 何を求めるべきかを知ること—分解のメタスキル
 
-## What the Article Gets Right
-
-The core insight is valid: **outsourcing all thinking to AI creates fragile engineers.** Someone who can't debug without AI, can't recognize when AI is confidently wrong, can't reason about why code works—that person is vulnerable.
-
-But the solution isn't to practice linked list reversals for whiteboard nostalgia. It's to develop judgment: knowing when to trust the machine, when to verify, when to override.
-
-The "Reverse Vibe Check" is a step in this direction. Asking "explain this to me like I'm five" forces understanding. Testing failure cases builds intuition. These habits scale better than memorizing algorithms.
+模擬面接での失敗は、スキルの萎縮を示しているのではないかもしれない。ホワイトボード面接が間違った時代をテストしていることを示しているのかもしれない。
 
 ---
 
-### Strength
+## より深い問題：学習と実績
 
-* Honest self-reflection without defensiveness or blame-shifting
-* Practical, actionable advice (the Reverse Vibe Check framework)
-* Avoids both extremes: neither "AI will save us" nor "AI is ruining everything"
+記事は二つの異なる不安を混同している：
 
-### Weakness
+1. **学習の不安**: 「本当に理解しているのか、それとも偽っているだけなのか？」
+2. **実績の不安**: 「AIを禁止する面接に受かるだろうか？」
 
-* Treats whiteboard interview skills as the gold standard of competence
-* Doesn't question whether today's "fundamentals" will remain fundamental
-* The anxiety may be temporally local—interviews and education will adapt
+これらには異なる解決策が必要だ。
 
----
+学習については「Reverse Vibe Check」は理にかなっている—能動的な関与は受動的な受容に勝る。しかし実績については、本当の問いはこうだ：**なぜ私たちはAIが存在しないかのように面接を続けているのか？**
 
-### One thought
-
-Every generation of programmers has feared that the next generation is "cheating." Calculators, IDEs, Stack Overflow, now AI. Each time, what counted as "real programming" shifted.
-
-The author worries she might not be a "real" programmer because she can't reverse a linked list from memory. But consider: her ability to ship working software faster than her predecessors—that's also real. The question isn't whether vibe coding is ruining her degree. It's whether her degree is preparing her for a world where vibe coding is normal.
+Googleは面接で電卓を許可している。現代のIDEはオートコンプリートを提供する。業界は適応した。AI支援コーディングが標準になれば—そしてそうなる—面接も追随する。著者は卒業時には存在しないかもしれないテストのために訓練しているのだ。
 
 ---
 
-### Score
+## 記事が正しい点
 
-| Target | Score | Comment |
-|--------|-------|---------|
-| Original article | 7/10 | Sincere, practical, well-structured. Doesn't question its own assumptions. |
-| This review | 7/10 | Added historical perspective. May undervalue the genuine risk of skill atrophy. |
+核心的な洞察は有効だ：**すべての思考をAIに外注することは脆弱なエンジニアを生み出す。** AIなしでデバッグできない人、AIが自信満々に間違っているときにそれを認識できない人、コードがなぜ動くのかを推論できない人—その人は脆弱だ。
+
+しかし、解決策はホワイトボードへのノスタルジーのためにリンクリスト反転を練習することではない。判断力を養うことだ：いつ機械を信頼し、いつ検証し、いつ上書きするか。
+
+「Reverse Vibe Check」はその方向への一歩だ。「5歳児に説明するように」と求めることで理解が強制される。失敗ケースをテストすることで直感が養われる。これらの習慣はアルゴリズムを暗記するよりもスケールする。
+
+---
+
+### 強み
+
+* 防御や責任転嫁のない誠実な自己省察
+* 実践的で行動可能なアドバイス（Reverse Vibe Checkフレームワーク）
+* 両極端を避けている：「AIが救う」とも「AIが全てを台無しにする」とも言わない
+
+### 弱み
+
+* ホワイトボード面接スキルを能力のゴールドスタンダードとして扱っている
+* 今日の「基礎」が基礎であり続けるかどうかを問うていない
+* 不安は時間的に局所的かもしれない—面接と教育は適応する
+
+---
+
+### 一つの考え
+
+プログラマーの各世代は、次の世代が「ズルをしている」と恐れてきた。電卓、IDE、Stack Overflow、そして今はAI。そのたびに「本当のプログラミング」とは何かが変わってきた。
+
+著者はリンクリストを暗記から反転できないから「本当の」プログラマーではないかもしれないと心配している。しかし考えてみてほしい：前世代より速く動くソフトウェアを出荷できる彼女の能力—それもまた本物だ。問いは「バイブコーディングが学位を台無しにしているか」ではない。「学位がバイブコーディングが普通になる世界に彼女を備えさせているか」だ。
+
+---
+
+### スコア
+
+| 対象 | スコア | コメント |
+|------|--------|----------|
+| 元記事 | 7/10 | 誠実で実践的、構成も良い。自らの前提を問うていない。 |
+| このレビュー | 7/10 | 歴史的視点を追加。スキル萎縮の真のリスクを過小評価している可能性。 |
 
 ---
 
