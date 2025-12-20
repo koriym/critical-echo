@@ -1,0 +1,86 @@
+name: Generate Review
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Target platform (all, zenn, qiita, note, devto, hn)'
+        required: false
+        default: 'all'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install requests feedparser
+
+      - name: Fetch trends and select article
+        id: select
+        env:
+          PLATFORM: ${{ github.event.inputs.platform }}
+        run: |
+          python scripts/fetch-trends.py
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Generate review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          if [ -f .selected_article.json ]; then
+            ARTICLE_URL=$(cat .selected_article.json | jq -r '.url')
+            ARTICLE_TITLE=$(cat .selected_article.json | jq -r '.title')
+
+            claude -p "
+            以下の記事について Critical Echo のレビューを生成してください。
+
+            タイトル: ${ARTICLE_TITLE}
+            URL: ${ARTICLE_URL}
+
+            手順:
+            1. 記事を読んで内容を理解する
+            2. templates/review.md のフォーマットに従ってレビューを作成
+            3. レビューは日本語で書く
+            4. 英語記事の場合は「元記事の概要」セクションを追加
+            5. docs/reviews/$(date +%Y-%m-%d)-[slug].md として保存
+            6. docs/_data/reviews.yml に追記
+            7. url_list.md に URL を追記
+
+            SKILL.md の原則に従ってください。
+            "
+
+            rm -f .selected_article.json
+          else
+            echo "No article selected"
+            exit 0
+          fi
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Add review via workflow dispatch"
+            git push
+          fi

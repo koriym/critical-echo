@@ -2,7 +2,7 @@
 
 ## ステータス
 
-承認
+承認・実装中
 
 ## コンテキスト
 
@@ -10,22 +10,47 @@
 
 ## 決定
 
-### Phase 1（即時）
+### Phase 1（完了）
 
 - `docs/_data/reviews.yml` にレビューメタデータを管理
 - Jekyll の `site.data.reviews` でリスト自動生成
 - 現在のデザイン（`index.html`）はそのまま維持
 
-### Phase 2（半自動化）
+### Phase 2（実装中）
 
 - `url_list.md` でレビュー済みURL管理
-- 手動でURL追加 → CI（Claude API）が批評生成
+- GitHub Actions で `workflow_dispatch` トリガー
+- トレンド自動収集 → 記事選定 → Claude API で批評生成
 
-### Phase 3（全自動化）
+#### データソース
 
-- トレンド自動収集（Zenn, Hacker News等）
-- 48時間以内の記事を優先
-- 1日1記事生成
+| プラットフォーム | エンドポイント |
+|------------------|----------------|
+| Zenn | `zenn.dev/api/articles?order=trend` |
+| Qiita | `qiita.com/api/v2/items` |
+| note | `note.com/recommend/rss` |
+| Dev.to | `dev.to/api/articles?top=1` |
+| Hacker News | HN Firebase API |
+
+#### ワークフロー
+
+```
+workflow_dispatch
+    ↓
+scripts/fetch-trends.py（トレンド収集）
+    ↓
+url_list.md と照合（重複除外）
+    ↓
+48時間以内を優先、1記事選定
+    ↓
+Claude Code CLI で批評生成
+    ↓
+自動コミット＆プッシュ
+```
+
+### Phase 3（予定）
+
+- 日次スケジュール実行
 - 月次で `url_list.md` を `archive/YYYY-MM.md` にアーカイブ
 
 ## 言語方針
@@ -36,9 +61,13 @@
 ## 構成
 
 ```
-url_list.md                  ← レビュー済みURLリスト（今月分）
+url_list.md                  ← レビュー済みURLリスト
 archive/
   YYYY-MM.md                 ← 月次アーカイブ
+.github/workflows/
+  generate-review.yml        ← ワークフロー
+scripts/
+  fetch-trends.py            ← トレンド収集スクリプト
 docs/
   _data/
     reviews.yml              ← レビューメタデータ
@@ -50,5 +79,5 @@ docs/
 ## 結果
 
 - レビュー追加時の編集箇所が `_data/reviews.yml` に集約
-- 将来的にCI自動化への移行が容易
+- CI自動化により手動作業を最小化
 - 重複レビュー防止の仕組みが整備される
