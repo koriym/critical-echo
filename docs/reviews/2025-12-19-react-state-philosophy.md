@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # On「React の状態管理の歴史と、最新 API に込められた React の思想」
 
 > Original: https://zenn.dev/zozotech/articles/ebf38b7ab4aff0

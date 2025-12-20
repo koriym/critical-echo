@@ -1,0 +1,83 @@
+name: Generate Review
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: 'Target platform (all, zenn, qiita, note, devto, hn)'
+        required: false
+        default: 'all'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests feedparser
+
+      - name: Fetch trends and select article
+        id: select
+        env:
+          PLATFORM: ${{ github.event.inputs.platform }}
+        run: python scripts/fetch-trends.py
+
+      - name: Check if article selected
+        id: check
+        run: |
+          if [ -f .selected_article.json ]; then
+            echo "selected=true" >> $GITHUB_OUTPUT
+            echo "url=$(jq -r '.url' .selected_article.json)" >> $GITHUB_OUTPUT
+            echo "title=$(jq -r '.title' .selected_article.json)" >> $GITHUB_OUTPUT
+          else
+            echo "selected=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate review with Claude
+        if: steps.check.outputs.selected == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            Generate a Critical Echo review for the following article.
+
+            Title: ${{ steps.check.outputs.title }}
+            URL: ${{ steps.check.outputs.url }}
+
+            Instructions:
+            1. Use WebFetch to read and understand the article
+            2. Follow the format in templates/review.md
+            3. Write the review in Japanese
+            4. For English articles, add a "元記事の概要" (Article Summary) section
+            5. Save as docs/reviews/$(date +%Y-%m-%d)-[slug].md
+            6. Prepend entry to docs/_data/reviews.yml
+            7. Append URL to url_list.md
+
+            Follow the principles in SKILL.md.
+          claude_args: '--allowed-tools "WebFetch,Read,Write,Edit,Bash(git status),Bash(date)"'
+
+      - name: Cleanup
+        if: always()
+        run: rm -f .selected_article.json
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Add review via workflow dispatch"
+            git push
+          fi

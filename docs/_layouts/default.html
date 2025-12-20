@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title | default: "Critical Echo" }}</title>
+    <style>
+        :root {
+            --bg: #fafafa;
+            --text: #333;
+            --accent: #c00;
+            --muted: #666;
+            --border: #ddd;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #1a1a1a;
+                --text: #e0e0e0;
+                --accent: #ff6b6b;
+                --muted: #999;
+                --border: #333;
+            }
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+            line-height: 1.7;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            background: var(--bg);
+            color: var(--text);
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+        h2 {
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.3rem;
+        }
+        h3 { font-size: 1.1rem; margin-top: 1.5rem; }
+        p { margin: 1rem 0; }
+        blockquote {
+            border-left: 3px solid var(--accent);
+            margin: 1.5rem 0;
+            padding-left: 1rem;
+            color: var(--muted);
+            font-style: italic;
+        }
+        ul, ol { padding-left: 1.5rem; }
+        li { margin: 0.5rem 0; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+        table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+        th, td { border: 1px solid var(--border); padding: 0.5rem; text-align: left; }
+        th { background: var(--border); }
+        code { background: var(--border); padding: 0.2rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+        .nav { margin-bottom: 2rem; font-size: 0.9rem; }
+        .nav a { color: var(--muted); }
+        footer {
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="{{ "/" | relative_url }}">&larr; Critical Echo</a>
+    </nav>
+
+    <main>
+        {{ content }}
+    </main>
+
+    <footer>
+        <p>
+            <a href="https://github.com/koriym/critical-echo">GitHub</a>
+        </p>
+    </footer>
+</body>
+</html>
