@@ -7,6 +7,7 @@ import json
 import os
 import re
 import sys
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -178,8 +179,7 @@ def fetch_hackernews() -> list[dict]:
         resp.raise_for_status()
         story_ids = resp.json()[:20]
 
-        articles = []
-        for sid in story_ids:
+        def fetch_item(sid: int) -> dict | None:
             try:
                 item_resp = requests.get(
                     f"https://hacker-news.firebaseio.com/v0/item/{sid}.json",
@@ -187,17 +187,22 @@ def fetch_hackernews() -> list[dict]:
                 )
                 item = item_resp.json()
                 if item.get("url"):  # Skip text-only posts
-                    articles.append({
+                    return {
                         "platform": "hn",
                         "title": item.get("title", ""),
                         "url": item.get("url", ""),
                         "published": datetime.fromtimestamp(item.get("time", 0), tz=JST),
                         "likes": item.get("score", 0),
-                    })
-            except Exception:
-                continue
+                    }
+            except requests.RequestException as e:
+                print(f"Warning: Failed to fetch HN item {sid}: {e}")
+            return None
+
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            results = executor.map(fetch_item, story_ids)
+            articles = [r for r in results if r is not None]
         return articles
-    except Exception as e:
+    except requests.RequestException as e:
         print(f"Error fetching HN: {e}")
         return []
 
@@ -246,7 +251,7 @@ def main():
     }
 
     if platform == "all":
-        for name, fetcher in fetchers.items():
+        for fetcher in fetchers.values():
             all_articles.extend(fetcher())
     elif platform in fetchers:
         all_articles = fetchers[platform]()
