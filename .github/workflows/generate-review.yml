@@ -23,55 +23,51 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: |
-          pip install requests feedparser
+        run: pip install requests feedparser
 
       - name: Fetch trends and select article
         id: select
         env:
           PLATFORM: ${{ github.event.inputs.platform }}
-        run: |
-          python scripts/fetch-trends.py
+        run: python scripts/fetch-trends.py
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install Claude Code
-        run: npm install -g @anthropic-ai/claude-code
-
-      - name: Generate review
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - name: Check if article selected
+        id: check
         run: |
           if [ -f .selected_article.json ]; then
-            ARTICLE_URL=$(cat .selected_article.json | jq -r '.url')
-            ARTICLE_TITLE=$(cat .selected_article.json | jq -r '.title')
-
-            claude -p "
-            以下の記事について Critical Echo のレビューを生成してください。
-
-            タイトル: ${ARTICLE_TITLE}
-            URL: ${ARTICLE_URL}
-
-            手順:
-            1. 記事を読んで内容を理解する
-            2. templates/review.md のフォーマットに従ってレビューを作成
-            3. レビューは日本語で書く
-            4. 英語記事の場合は「元記事の概要」セクションを追加
-            5. docs/reviews/$(date +%Y-%m-%d)-[slug].md として保存
-            6. docs/_data/reviews.yml に追記
-            7. url_list.md に URL を追記
-
-            SKILL.md の原則に従ってください。
-            "
-
-            rm -f .selected_article.json
+            echo "selected=true" >> $GITHUB_OUTPUT
+            echo "url=$(jq -r '.url' .selected_article.json)" >> $GITHUB_OUTPUT
+            echo "title=$(jq -r '.title' .selected_article.json)" >> $GITHUB_OUTPUT
           else
-            echo "No article selected"
-            exit 0
+            echo "selected=false" >> $GITHUB_OUTPUT
           fi
+
+      - name: Generate review with Claude
+        if: steps.check.outputs.selected == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Generate a Critical Echo review for the following article.
+
+            Title: ${{ steps.check.outputs.title }}
+            URL: ${{ steps.check.outputs.url }}
+
+            Instructions:
+            1. Use WebFetch to read and understand the article
+            2. Follow the format in templates/review.md
+            3. Write the review in Japanese
+            4. For English articles, add a "元記事の概要" (Article Summary) section
+            5. Save as docs/reviews/$(date +%Y-%m-%d)-[slug].md
+            6. Prepend entry to docs/_data/reviews.yml
+            7. Append URL to url_list.md
+
+            Follow the principles in SKILL.md.
+          allowed_tools: "WebFetch,Read,Write,Edit,Bash(git status),Bash(date)"
+
+      - name: Cleanup
+        if: always()
+        run: rm -f .selected_article.json
 
       - name: Commit and push
         run: |
