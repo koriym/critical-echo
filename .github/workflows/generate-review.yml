@@ -62,22 +62,12 @@ jobs:
             5. Save as docs/reviews/$(date +%Y-%m-%d)-[slug].md
             6. Prepend entry to docs/_data/reviews.yml
             7. Append URL to url_list.md
+            8. Commit all changes with message "Add review: [article title]"
+            9. Push to the repository
 
             Follow the principles in SKILL.md.
-          claude_args: '--allowed-tools "WebFetch,Read,Write,Edit,Bash(git status),Bash(date)"'
+          claude_args: '--allowed-tools "WebFetch,Read,Write,Edit,Bash(git *),Bash(date)"'
 
       - name: Cleanup
         if: always()
         run: rm -f .selected_article.json
-
-      - name: Commit and push
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
-            git commit -m "Add review via workflow dispatch"
-            git push
-          fi
