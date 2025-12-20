@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # On「AIレイオフによる【ITエンジニア失業論】の誤解」
 
 > Original: https://note.com/rk611/n/n0409a9735954

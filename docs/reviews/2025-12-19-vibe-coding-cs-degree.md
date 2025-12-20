@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # On "Is 'Vibe Coding' Ruining My CS Degree?"
 
 > Original: https://dev.to/maame-codes/is-vibe-coding-ruining-my-cs-degree-3m3
