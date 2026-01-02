@@ -102,20 +102,28 @@ Check the generated review.
 
 ### 5. Publish
 
-Add to `reviews/` directory and commit.
+Save the review and update related files:
 
-**Filename convention:**
-```
-YYYY-MM-DD-[short-title].md
-```
+1. **Save review file** to `docs/reviews/YYYY-MM-DD-[slug].md`
+   - Example: `docs/reviews/2025-12-19-value-of-upstream.md`
 
-Example: `2025-12-19-value-of-upstream.md`
+2. **Update reviews.yml** - Prepend a new entry to `docs/_data/reviews.yml`:
+   ```yaml
+   - title: 'On "Article Title"'
+     slug: YYYY-MM-DD-[slug]
+     date: YYYY-MM-DD
+     original: https://original-url
+   ```
+
+3. **Update url_list.md** - Append the URL to `url_list.md` to prevent duplicate reviews
+
+4. **Commit** all changes with message: `Add review: [article title]`
 
 ---
 
 ## Templates
 
-See [templates/review.md](./templates/review.md).
+See `templates/review.md` in the repository root.
 
 ---
 
