@@ -105,13 +105,15 @@ Check the generated review.
 Save the review and update related files:
 
 1. **Save review file** to `docs/reviews/YYYY-MM-DD-[slug].md`
+   - Slug: lowercase, hyphen-separated, descriptive (e.g., `react-state-philosophy`)
    - Example: `docs/reviews/2025-12-19-value-of-upstream.md`
 
-2. **Update reviews.yml** - Prepend a new entry to `docs/_data/reviews.yml`:
+2. **Update reviews.yml** - Add at the TOP of `docs/_data/reviews.yml`:
    ```yaml
+   # Add this entry at the beginning of the file:
    - title: 'On "Article Title"'
-     slug: YYYY-MM-DD-[slug]
-     date: YYYY-MM-DD
+     slug: 2025-12-19-article-slug
+     date: 2025-12-19
      original: https://original-url
    ```
 
